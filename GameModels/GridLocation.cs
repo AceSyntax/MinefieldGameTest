@@ -20,14 +20,13 @@ public class GridLocation : IGridLocation
         return (char)codePoint;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        if (obj == null || GetType() != obj.GetType())
+        if (obj is not GridLocation other)
         {
             return false;
         }
 
-        GridLocation other = (GridLocation)obj;
         return X == other.X && Y == other.Y;
     }
 
