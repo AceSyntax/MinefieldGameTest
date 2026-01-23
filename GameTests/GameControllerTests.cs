@@ -17,12 +17,10 @@ public class GameControllerTests
         var mockNavigator = new Mock<INavigator>();
         var mockGameStateTracker = new Mock<IGameStateTracker>();
         var mockPlayerFeedbackProvider = new Mock<IPlayerFeedbackProvider>();
+        var mockInputProvider = new Mock<IInputProvider>();
+        mockInputProvider.Setup(m => m.GetKey()).Returns(ConsoleKey.Enter);
 
-        IGameController gameController = new GameController(mockNavigator.Object, mockGameStateTracker.Object, mockPlayerFeedbackProvider.Object, () => ConsoleKey.Enter);
-
-        // Set up console input
-        var input = new System.IO.StringReader("Enter");
-        Console.SetIn(input);
+        IGameController gameController = new GameController(mockNavigator.Object, mockGameStateTracker.Object, mockPlayerFeedbackProvider.Object, mockInputProvider.Object);
 
         // Act
         gameController.Run();
@@ -38,12 +36,11 @@ public class GameControllerTests
         var mockNavigator = new Mock<INavigator>();
         var mockGameStateTracker = new Mock<IGameStateTracker>();
         var mockPlayerFeedbackProvider = new Mock<IPlayerFeedbackProvider>();
-        IGameController gameController = new GameController(mockNavigator.Object, mockGameStateTracker.Object, mockPlayerFeedbackProvider.Object, () => ConsoleKey.Enter);
+        var mockInputProvider = new Mock<IInputProvider>();
+        mockInputProvider.Setup(m => m.GetKey()).Returns(ConsoleKey.Enter);
 
+        IGameController gameController = new GameController(mockNavigator.Object, mockGameStateTracker.Object, mockPlayerFeedbackProvider.Object, mockInputProvider.Object);
 
-        // Set up console input
-        var input = new System.IO.StringReader("Enter");
-        Console.SetIn(input);
 
         // Raise GameLost event
         mockGameStateTracker.Raise(m => m.GameLost += null);
@@ -62,13 +59,11 @@ public class GameControllerTests
         var mockNavigator = new Mock<INavigator>();
         var mockGameStateTracker = new Mock<IGameStateTracker>();
         var mockPlayerFeedbackProvider = new Mock<IPlayerFeedbackProvider>();
+        var mockInputProvider = new Mock<IInputProvider>();
+        mockInputProvider.Setup(m => m.GetKey()).Returns(ConsoleKey.Enter);
 
-        IGameController gameController = new GameController(mockNavigator.Object, mockGameStateTracker.Object, mockPlayerFeedbackProvider.Object, () => ConsoleKey.Enter);
+        IGameController gameController = new GameController(mockNavigator.Object, mockGameStateTracker.Object, mockPlayerFeedbackProvider.Object, mockInputProvider.Object);
 
-
-        // Set up console input
-        var input = new System.IO.StringReader("Enter");
-        Console.SetIn(input);
 
         // Raise GameWon event
         mockGameStateTracker.Raise(m => m.GameWon += null);

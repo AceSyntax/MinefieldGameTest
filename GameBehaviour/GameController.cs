@@ -9,10 +9,10 @@ public class GameController : IGameController
     private IPlayerFeedbackProvider playerFeedbackProvider;
     private bool gameLost;
     private bool gameWon;
-    private Func<ConsoleKey> readKey;
-    
+    private IInputProvider inputProvider;
 
-        public GameController(INavigator navigator, IGameStateTracker gameStateTracker, IPlayerFeedbackProvider playerFeedbackProvider, Func<ConsoleKey> readKey = null)
+
+    public GameController(INavigator navigator, IGameStateTracker gameStateTracker, IPlayerFeedbackProvider playerFeedbackProvider, IInputProvider inputProvider)
     {
         // sure, use underscores for private fields or qualify with this, or neither, I'm happy either way
         this.navigator = navigator;
@@ -20,7 +20,7 @@ public class GameController : IGameController
         this.gameStateTracker.GameLost += () => gameLost = true;
         this.gameStateTracker.GameWon += () => gameWon = true;
         this.playerFeedbackProvider = playerFeedbackProvider;
-        this.readKey = readKey ?? (() => Console.ReadKey(intercept: true).Key);
+        this.inputProvider = inputProvider;
     }
 
 
@@ -36,7 +36,7 @@ public class GameController : IGameController
 
         while (true)
         {
-            var key = readKey();
+            var key = inputProvider.GetKey();
             navigator.Navigate(key);
 
             if (key == ConsoleKey.Enter || gameLost || gameWon)

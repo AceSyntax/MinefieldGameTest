@@ -8,6 +8,7 @@ var diServices = new ServiceCollection()
     .AddSingleton<INavigator, Navigator>()
     .AddSingleton<IPlayerFeedbackProvider, PlayerFeedbackProvider>()
     .AddSingleton<IGameController, GameController>()
+    .AddSingleton<IInputProvider, ConsoleInputProvider>()
     .BuildServiceProvider();
 
 var gameController = diServices.GetService<IGameController>();

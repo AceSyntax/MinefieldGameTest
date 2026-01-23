@@ -14,11 +14,14 @@ public class GameStateTracker : IGameStateTracker
 
     public event Action MineHit = null!;
     public event Action? GameLost;
+
+
+
     public event Action? GameWon;
 
     public GameStateTracker(IMineFieldGenerator mineFieldGenerator)
     {
-        routeThroughMinefield = new List<IGridLocation> 
+        routeThroughMinefield = new List<IGridLocation>
         {
             // add the starting location as 0/0, could use Random to generate a position, or let the user choose.
             new GridLocation(3,0)
@@ -53,7 +56,7 @@ public class GameStateTracker : IGameStateTracker
 
     public void Initialize(/*tbd*/)
     {
-     //tbd   
+        //tbd   
     }
 
     private void WinGame()
